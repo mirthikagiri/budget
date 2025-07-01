@@ -63,7 +63,7 @@ function App() {
     e.preventDefault();
     if (income && !isNaN(income)) {
       const days = getDaysInMonth();
-      const limit = Math.floor((parseFloat(income) * 0.8) / days);
+      const limit = Math.floor((parseFloat(income) * 0.8) /(12* days));
       setDailyLimit(limit);
       setCustomLimit(limit);
       setEditLimit(true);
@@ -876,6 +876,7 @@ function App() {
       </div>
     )
   }
+
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
