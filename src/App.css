@@ -1,0 +1,391 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+  min-height: 100vh;
+}
+
+.banner {
+  width: 100vw;
+  min-height: 80px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.08);
+  padding: 0 2.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.banner-message {
+  flex: 1;
+  text-align: left;
+}
+
+.banner-message h2 {
+  color: #fff;
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.banner-income {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.income-amount-large {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255,255,255,0.12);
+  padding: 0.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.08);
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-form {
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 320px;
+}
+
+.login-form h2 {
+  margin: 0 0 1rem 0;
+  color: #f76b1c;
+  font-weight: 600;
+  text-align: center;
+}
+
+.login-form input {
+  padding: 0.8rem 1rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.login-form input:focus {
+  border: 1.5px solid #f76b1c;
+}
+
+.login-form button {
+  padding: 0.8rem 1rem;
+  background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-form button:hover {
+  background: linear-gradient(90deg, #fda085 0%, #f6d365 100%);
+}
+
+.error {
+  color: #e74c3c;
+  background: #ffeaea;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding-top: 100px;
+}
+
+.welcome-msg, .income-display {
+  display: none;
+}
+
+.income-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.income-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.08);
+}
+
+.income-form label {
+  font-size: 1.1rem;
+  color: #f76b1c;
+  font-weight: 500;
+}
+
+.income-form input {
+  padding: 0.7rem 1rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  width: 200px;
+  margin-bottom: 0.5rem;
+}
+
+.income-form button {
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.income-form button:hover {
+  background: linear-gradient(90deg, #fda085 0%, #f6d365 100%);
+}
+
+.income-display {
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+  color: #333;
+  background: #fff7e6;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.06);
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.income-label {
+  font-weight: 600;
+  color: #f76b1c;
+  font-size: 1.2rem;
+}
+
+.income-amount {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.track-expenses-title {
+  font-size: 2rem;
+  color: #f76b1c;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.add-category-btn {
+  background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.8rem 2rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.add-category-btn:hover {
+  background: linear-gradient(90deg, #fda085 0%, #f6d365 100%);
+}
+
+.category-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+.category-input {
+  padding: 0.7rem 1.2rem;
+  border: 1.5px solid #fda085;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  outline: none;
+}
+.category-add-btn {
+  background: #f76b1c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.category-add-btn:hover {
+  background: #fda085;
+}
+
+.categories-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.category-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.category-btn {
+  background: #fff7e6;
+  color: #f76b1c;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.7rem 2rem;
+  box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.06);
+}
+.add-bill-btn {
+  background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.add-bill-btn:hover {
+  background: linear-gradient(90deg, #fda085 0%, #f6d365 100%);
+}
+
+.bill-form-box {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background: #fff;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.08);
+  margin-top: 1rem;
+}
+.bill-title-input, .bill-amount-input {
+  padding: 0.7rem 1.2rem;
+  border: 1.5px solid #fda085;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  outline: none;
+}
+.bill-add-btn {
+  background: #f76b1c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.bill-add-btn:hover {
+  background: #fda085;
+}
+
+.expense-error {
+  color: #e74c3c;
+  background: #ffeaea;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.main-content {
+  margin-top: 2.5rem;
+  width: 100%;
+  max-width: 700px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 18px;
+  box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.08);
+  padding: 2.5rem 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bill-form-full {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: #fff;
+  padding: 2.2rem 2rem 2rem 2rem;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.10);
+  margin-top: 2.5rem;
+}
+.bill-form-header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+.back-btn {
+  background: none;
+  border: none;
+  color: #f76b1c;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.3rem 0.8rem 0.3rem 0;
+  transition: color 0.2s;
+}
+.back-btn:hover {
+  color: #fda085;
+}
+.bill-category-title {
+  font-size: 1.3rem;
+  color: #333;
+  font-weight: 600;
+}
+.bill-form-full .bill-title-input,
+.bill-form-full .bill-amount-input {
+  font-size: 1.15rem;
+  margin-bottom: 1.2rem;
+  padding: 0.8rem 1.2rem;
+}
+.bill-form-full .bill-add-btn {
+  font-size: 1.15rem;
+  padding: 0.8rem 1.5rem;
+}
