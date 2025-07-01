@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-
+import dotenv from 'dotenv';
+import fetch from 'node-fetch';
 
 import mongoose from 'mongoose';
 const MONGO_URI='mongodb://127.0.0.1:27017/Budget';
@@ -161,6 +162,37 @@ app.post('/api/user-settings', express.json(), async (req, res) => {
     res.status(200).json(settings);
   } catch (err) {
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// --- AI Assistance Endpoint (Gemini) ---
+app.post('/api/ai-assist', express.json(), async (req, res) => {
+  const { prompt } = req.body;
+  if (!prompt) return res.status(400).json({ error: 'Missing prompt.' });
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return res.status(500).json({ error: 'AI API key not set.' });
+
+  // Gemini API endpoint and system prompt
+  const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + apiKey;
+  const systemPrompt = `You are a helpful financial assistant for a personal budget tracker app. Give advice on budgeting, saving, and investments, and answer questions about the user's spending, categories, and limits.`;
+
+  try {
+    const geminiRes = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [
+          { role: 'user', parts: [{ text: systemPrompt + '\nUser: ' + prompt }] }
+        ]
+      })
+    });
+    const data = await geminiRes.json();
+    // Gemini returns response in data.candidates[0].content.parts[0].text
+    const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I could not generate a response.';
+    res.json({ response: aiText });
+  } catch (err) {
+    console.error('AI error:', err);
+    res.status(500).json({ error: 'AI service unavailable.' });
   }
 });
 
