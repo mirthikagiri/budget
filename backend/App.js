@@ -44,12 +44,15 @@ function App() {
 
   // Fetch total expense from backend
   // Fetch all app data from backend (total, today, recent, categories)
-  // Fetch total expense from backend
-  const fetchTotalExpense = async () => {
+  const fetchAppData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/total-spent');
+      const response = await fetch('http://localhost:5000/api/app-init');
       const data = await response.json();
       setTotalExpense(data.totalSpent || 0);
+      // Optionally set other state: todaySpent, recentBills, categories
+      // setTodaySpent(data.todaySpent || 0);
+      // setRecentBills(data.recentBills || []);
+      // setCategories(data.categories || []);
     } catch {
       setTotalExpense(0);
     }
@@ -453,20 +456,15 @@ function App() {
     setAiLoading(true);
     setAiMessages(prev => [...prev, { from: 'user', text: aiInput }]);
     try {
-      const res = await fetch('http://localhost:5000/api/ai-assist', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: aiInput })
-      });
-      if (!res.ok) {
-        throw new Error('AI server error');
-      }
-      const data = await res.json();
-      setAiMessages(prev => [...prev, { from: 'ai', text: data.response || 'Sorry, I could not generate a response.' }]);
+      // Simulate AI response
+      setTimeout(() => {
+        setAiMessages(prev => [...prev, { from: 'ai', text: "I'm here to help! (AI response placeholder)" }]);
+        setAiLoading(false);
+      }, 1200);
     } catch (err) {
       setAiMessages(prev => [...prev, { from: 'ai', text: 'Sorry, something went wrong.' }]);
+      setAiLoading(false);
     }
-    setAiLoading(false);
     setAiInput('');
   };
 

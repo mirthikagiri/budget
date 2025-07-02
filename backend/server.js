@@ -1,10 +1,13 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
-import fetch from 'node-fetch';
+// Load environment variables from .env file
+require('dotenv').config();
 
-import mongoose from 'mongoose';
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const fetch = require('node-fetch');
+const mongoose = require('mongoose');
+
+
 const MONGO_URI='mongodb://127.0.0.1:27017/Budget';
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
@@ -46,7 +49,7 @@ const UserSettings = mongoose.model('UserSettings', userSettingsSchema);
 
 
  const app = express(); 
-  app.use(cors()); 
+  app.use(cors());
  
   // Update POST /api/expenses to require username and filter by user/category
   app.post('/api/expenses', express.json(), async (req, res) => {
@@ -165,34 +168,51 @@ app.post('/api/user-settings', express.json(), async (req, res) => {
   }
 });
 
-// --- AI Assistance Endpoint (Gemini) ---
+// --- AI Assistance Endpoint (Gemini, Raw HTTP) ---
 app.post('/api/ai-assist', express.json(), async (req, res) => {
   const { prompt } = req.body;
-  if (!prompt) return res.status(400).json({ error: 'Missing prompt.' });
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return res.status(500).json({ error: 'AI API key not set.' });
 
-  // Gemini API endpoint and system prompt
-  const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + apiKey;
-  const systemPrompt = `You are a helpful financial assistant for a personal budget tracker app. Give advice on budgeting, saving, and investments, and answer questions about the user's spending, categories, and limits.`;
+  if (!prompt) return res.status(400).json({ error: 'Missing prompt.' });
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  // Use v1beta endpoint and a v1beta model (gemini-2.0-flash or gemini-2.0-pro)
+  const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey;
+
+  const requestBody = {
+    contents: [
+      {
+        role: "user",
+        parts: [
+          {
+            text: `You are a personal budget assistant. ${prompt}`
+          }
+        ]
+      }
+    ]
+  };
 
   try {
-    const geminiRes = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [
-          { role: 'user', parts: [{ text: systemPrompt + '\nUser: ' + prompt }] }
-        ]
-      })
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(requestBody)
     });
-    const data = await geminiRes.json();
-    // Gemini returns response in data.candidates[0].content.parts[0].text
-    const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I could not generate a response.';
-    res.json({ response: aiText });
-  } catch (err) {
-    console.error('AI error:', err);
-    res.status(500).json({ error: 'AI service unavailable.' });
+
+    const data = await response.json();
+
+    // Log full response
+    console.log("🔍 Gemini API raw response:", JSON.stringify(data, null, 2));
+
+    if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
+      res.json({ response: data.candidates[0].content.parts[0].text });
+    } else {
+      res.status(500).json({ error: "Gemini did not return a valid response." });
+    }
+  } catch (error) {
+    console.error("AI error:", error);
+    res.status(500).json({ error: "Gemini API error." });
   }
 });
 

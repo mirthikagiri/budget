@@ -203,7 +203,8 @@ body {
   font-size: 2rem;
   color: #f76b1c;
   font-weight: 700;
-  margin-bottom: 2rem;
+  margin-bottom: 1.1rem;
+  margin-top: 0.2rem;
   text-align: center;
 }
 
@@ -215,18 +216,22 @@ body {
   font-size: 1.2rem;
   font-weight: 600;
   padding: 0.8rem 2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.2rem;
+  margin-top: 0;
   cursor: pointer;
   transition: background 0.2s;
 }
 .add-category-btn:hover {
   background: linear-gradient(90deg, #fda085 0%, #f6d365 100%);
 }
+.add-category-btn + .add-category-btn {
+  margin-left: 0.7rem;
+}
 
 .category-form {
   display: flex;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.1rem;
   justify-content: center;
 }
 .category-input {
@@ -330,13 +335,13 @@ body {
 }
 
 .main-content {
-  margin-top: 2.5rem;
+  margin-top: 1.2rem;
   width: 100%;
   max-width: 700px;
   background: rgba(255,255,255,0.85);
   border-radius: 18px;
   box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.08);
-  padding: 2.5rem 2rem 2rem 2rem;
+  padding: 2.1rem 2rem 1.5rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -388,4 +393,190 @@ body {
 .bill-form-full .bill-add-btn {
   font-size: 1.15rem;
   padding: 0.8rem 1.5rem;
+}
+
+.recent-bills-container {
+  width: 100%;
+  margin: 24px 0 0 0;
+  background: #fffde7;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(255,152,0,0.07);
+  padding: 18px;
+}
+.recent-bills-container table {
+  width: 100%;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(255,152,0,0.07);
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+.recent-bills-container th {
+  background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 10px 12px;
+  text-align: left;
+}
+.recent-bills-container td {
+  padding: 10px 12px;
+  font-size: 1.05rem;
+  color: #333;
+  border-bottom: 1px solid #ffe0b2;
+}
+.recent-bills-container tr:last-child td {
+  border-bottom: none;
+}
+.recent-bills-container tbody tr:hover {
+  background: #fff8e1;
+}
+.recent-bills-container .no-bills {
+  color: #888;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.info-summary-box {
+  width: 100%;
+  max-width: 700px;
+  margin: 24px auto 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px 0 rgba(255,152,0,0.10);
+  padding: 1.5rem 2rem 1.2rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem 2.5rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.13rem;
+  color: #333;
+  box-sizing: border-box;
+}
+@media (max-width: 800px) {
+  .info-summary-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.1rem;
+    padding: 1.2rem 1rem;
+  }
+}
+.info-summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 140px;
+  margin-bottom: 0.2rem;
+}
+.info-summary-label {
+  color: #FB8C00;
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 2px;
+}
+.info-summary-value {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #2462cd;
+  word-break: break-word;
+}
+.info-summary-value.negative {
+  color: #d32f2f;
+}
+.info-summary-value.positive {
+  color: #388e3c;
+}
+
+.stat-cards-row {
+  width: 100%;
+  max-width: 900px;
+  margin: 32px auto 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: stretch;
+}
+.stat-card {
+  flex: 1 1 180px;
+  min-width: 180px;
+  max-width: 180px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px 0 rgba(255,152,0,0.10);
+  padding: 1.2rem 1.1rem 1.1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: box-shadow 0.18s;
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .stat-card {
+    min-width: 140px;
+    max-width: 100%;
+  }
+}
+@media (max-width: 700px) {
+  .stat-cards-row {
+    gap: 0.7rem;
+  }
+  .stat-card {
+    min-width: 120px;
+    max-width: 100%;
+    padding: 1rem 0.7rem 0.9rem 0.7rem;
+  }
+  .stat-card-amount {
+    font-size: 1.13rem;
+  }
+  .stat-card-label {
+    font-size: 0.92rem;
+  }
+}
+
+/* --- Tailwind-style stat cards row for summary cards --- */
+.stat-cards-row-tailwind {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem; /* gap-3 */
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 2rem; /* px-8 */
+  padding-right: 2rem;
+}
+.stat-card-tailwind {
+  background: #fff;
+  padding: 1.5rem; /* p-6 */
+  border-radius: 0.75rem; /* rounded-xl */
+  box-shadow: 0 4px 16px 0 rgba(31,38,135,0.10); /* shadow-md */
+  width: 14rem; /* w-56 */
+  text-align: center;
+  transition: box-shadow 0.18s;
+  cursor: pointer;
+}
+.stat-card-tailwind:hover {
+  box-shadow: 0 8px 32px 0 rgba(31,38,135,0.16); /* shadow-lg */
+}
+.stat-card-amount-tailwind {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 700; /* font-bold */
+}
+.stat-card-amount-blue { color: #2563eb; } /* text-blue-600 */
+.stat-card-amount-red { color: #dc2626; }  /* text-red-600 */
+.stat-card-amount-green { color: #16a34a; } /* text-green-600 */
+.stat-card-label-tailwind {
+  font-size: 0.875rem; /* text-sm */
+  color: #6b7280; /* text-gray-500 */
+  margin-top: 0.5rem; /* mt-2 */
+}
+/* Add pb-32 below the section if needed for chatbot overlap */
+.stat-cards-row-tailwind.pb-32 {
+  padding-bottom: 8rem;
 }
